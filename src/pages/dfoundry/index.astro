@@ -1,0 +1,30 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('dfoundry');
+
+const grouped = entries.reduce((acc, entry) => {
+	const parts = entry.id.split('/');
+	const group = parts.length > 1 ? parts.slice(0, -1).join('/') : 'root';
+	if (!acc[group]) acc[group] = [];
+	acc[group].push(entry);
+	return acc;
+}, {} as Record<string, typeof entries>);
+---
+
+<StarlightPage frontmatter={{ title: 'DFoundry Documentation' }}>
+	<p>Total documents: {entries.length}</p>
+	{Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b)).map(([group, items]) => (
+		<section>
+			<h2 id={group}>{group}</h2>
+			<ul>
+				{items.map(item => (
+					<li>
+						<a href={`/dfoundry/${item.id}`}>{item.id.split('/').pop()}</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	))}
+</StarlightPage>
