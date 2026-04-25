@@ -2,7 +2,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
 
-const entries = await getCollection('dfoundry');
+const entries = await getCollection('dfoundry2');
 
 const grouped = entries.reduce((acc, entry) => {
 	const parts = entry.id.split('/');
@@ -17,10 +17,11 @@ const grouped = entries.reduce((acc, entry) => {
 	<p>Total documents: {entries.length}</p>
 	{Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b)).map(([group, items]) => (
 		<section>
-			<h2 id={group}>{group}</h2>
+			<div id={group}>{group}</div>
 			<ul>
 				{items.map(item => (
 					<li>
+						{/* <p>{item.id}</p> */}
 						<a href={`/dfoundry/${item.id}`}>{item.id.split('/').pop()}</a>
 					</li>
 				))}
