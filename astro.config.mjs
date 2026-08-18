@@ -2,6 +2,16 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import remarkObsidianMd from "remark-obsidian-md";
+import { vaultSidebar } from "./src/lib/vault-sidebar";
+
+// astro.config.mjs and content.config.ts run before Vite's .env loading
+// kicks in, so process.env won't have .env values yet unless we load it
+// ourselves.
+try {
+  process.loadEnvFile();
+} catch {
+  // no .env file - that's fine, OBSIDIAN_VAULT_PATH is optional
+}
 
 // Same env var as src/content.config.ts's `vault` collection - point it at
 // any Obsidian vault (or folder within one) to publish its notes.
@@ -25,18 +35,25 @@ export default defineConfig({
         },
       ],
       sidebar: [
-        {
-          label: "DFoundry",
-          items: [
-            { label: "All Documents", link: "dfoundry" },
-            { label: "Features", autogenerate: { directory: 'dfoundry/dist/digital-retail-banking/guidelines/features/' } },
-            { label: "Agents", autogenerate: { directory: 'dfoundry/lab/agents/claude/' } },
-          ],
-        },
         ...(vaultPath
-          ? [{ label: "Vault", items: [{ label: "All Notes", link: "vault" }] }]
+          ? [
+              {
+                label: "My Vault",
+                items: [
+                  { label: "All Notes", link: "vault" },
+                  ...vaultSidebar(vaultPath),
+                ],
+              },
+            ]
           : []),
       ],
     }),
   ],
+  vite: {
+    server: {
+      watch: {
+        ignored: ['!D:/My Drive/Obsidian/Personal and Study']
+      }
+    }
+  }
 });

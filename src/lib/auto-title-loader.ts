@@ -1,18 +1,11 @@
 import { readFileSync } from "node:fs";
-import path from "node:path";
 import type { Loader, LoaderContext } from "astro/loaders";
+import { titleFromFilename, titleFromH1 } from "./title";
 
-function titleFromFilename(filePath: string): string {
-  return path
-    .basename(filePath, path.extname(filePath))
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
-function titleFromH1(filePath: string): string | undefined {
+function deriveTitle(filePath: string): string {
   const raw = readFileSync(filePath, "utf-8");
   const body = raw.replace(/^---\n[\s\S]*?\n---\n?/, "");
-  return /^#\s+(.+)$/m.exec(body)?.[1]?.trim();
+  return titleFromH1(body) ?? titleFromFilename(filePath);
 }
 
 /**
@@ -30,7 +23,7 @@ export function withAutoTitle(loader: Loader): Loader {
       context.parseData = async (props) => {
         if (!props.data?.title) {
           const title =
-            (props.filePath && titleFromH1(props.filePath)) ||
+            (props.filePath && deriveTitle(props.filePath)) ||
             titleFromFilename(props.filePath ?? props.id);
           props = { ...props, data: { ...props.data, title } };
         }

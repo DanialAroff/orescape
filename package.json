@@ -12,9 +12,8 @@
   "dependencies": {
     "@astrojs/starlight": "^0.38.3",
     "astro": "^6.0.1",
-    "mdast-util-to-string": "^4.0.0",
+    "gray-matter": "^4.0.3",
     "remark-obsidian-md": "^1.1.0",
-    "sharp": "^0.34.2",
-    "unist-util-visit": "^5.1.0"
+    "sharp": "^0.34.2"
   }
 }
