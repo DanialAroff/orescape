@@ -3,7 +3,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-	const entries = await getCollection('dfoundry2');
+	const entries = await getCollection('vault');
 	return entries.map(entry => ({
 		params: { slug: entry.id },
 		props: { entry },
