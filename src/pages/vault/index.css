@@ -1,0 +1,20 @@
+.group-name {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.total-docs p {
+    margin: 0;
+}
+
+.total-docs {
+    padding: 16px 24px;
+    background: #FDFDFD;
+    border-radius: 0.875rem;
+    width: fit-content;
+}
+
+.total-docs--count {
+    font-size: 2rem;
+    font-weight: bold;
+}

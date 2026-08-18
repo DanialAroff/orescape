@@ -14,6 +14,6 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<StarlightPage frontmatter={{ title: entry.data.title || entry.id.split('/').pop() }}>
+<StarlightPage frontmatter={{ title: entry.data.title || entry.id.split('/').pop() || '' }}>
 	<Content />
 </StarlightPage>

@@ -1,4 +1,5 @@
 ---
+import './index.css';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import { getCollection } from 'astro:content';
 
@@ -14,10 +15,15 @@ const grouped = entries.reduce((acc, entry) => {
 ---
 
 <StarlightPage frontmatter={{ title: 'Vault Notes' }}>
-	<p>Total documents: {entries.length}</p>
+	<div class="total-docs">
+		<p>Total documents</p>
+		<p class="total-docs--count">
+			{entries.length}
+		</p>
+	</div>
 	{Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b)).map(([group, items]) => (
 		<section>
-			<div id={group}>{group}</div>
+			<div id={group} class='group-name'>{group}</div>
 			<ul>
 				{items.map(item => (
 					<li>

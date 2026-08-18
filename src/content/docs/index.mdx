@@ -1,29 +1,28 @@
 ---
-title: Welcome to Starlights
-description: Get started building your docs site with Starlight.
+title: Welcome to Orescape
+description: A docs site that publishes an Obsidian vault, built with Starlight.
 
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: Your Obsidian vault, published as a browsable docs site.
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/orescape.svg
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## Getting around
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Browse the vault" icon="open-book">
+		Notes live under [`/vault`](/vault), mirroring your vault's folder structure in the sidebar.
 	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
+	<Card title="Obsidian syntax, rendered" icon="pencil">
+		`[[wikilinks]]`, `![[embeds]]`, `> [!callouts]`, and `==highlights==` render as you'd expect from Obsidian.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Point it at your vault" icon="setting">
+		Set `OBSIDIAN_VAULT_PATH` in `.env` to publish any vault, or a folder within one.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="How it's built" icon="external">
+		See the [README](https://github.com/DanialAroff/orescape#readme) for how the vault loader and sidebar work.
 	</Card>
 </CardGrid>
